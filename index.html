@@ -241,9 +241,9 @@
   <section id="deploy">
     <div class="sec-head"><h2>세 번의 배포</h2><span class="idx">이 날짜만 기억하세요</span></div>
     <div class="deploys">
-      <div class="d"><div class="dd">8/7 <span class="dw">금</span></div><div class="dl">TRACK 1 · HTML·CSS·JS<br>→ Netlify 첫 URL</div><span class="dstar">★ v1</span></div>
-      <div class="d"><div class="dd">8/12 <span class="dw">수</span></div><div class="dl">TRACK 2 · React+Supabase<br>→ 데이터·로그인 v2</div><span class="dstar">★ v2</span></div>
-      <div class="d"><div class="dd">8/17 <span class="dw">월</span></div><div class="dl">TRACK 3 · Next.js+Firebase<br>→ Vercel 최종 URL</div><span class="dstar">★ v3</span></div>
+      <div class="d"><div class="dd">8/7 <span class="dw">금</span></div><div class="dl">TRACK 1 · HTML·CSS·JS<br>→ 첫 번째 서비스 · Netlify</div><span class="dstar">★ 서비스 ①</span></div>
+      <div class="d"><div class="dd">8/12 <span class="dw">수</span></div><div class="dl">TRACK 2 · React·Supabase·AI API<br>→ 두 번째 서비스 · Netlify</div><span class="dstar">★ 서비스 ②</span></div>
+      <div class="d"><div class="dd">8/17 <span class="dw">월</span></div><div class="dl">TRACK 3 · Next.js·Firebase·공공 API<br>→ 세 번째 서비스 · Vercel</div><span class="dstar">★ 서비스 ③</span></div>
     </div>
     <div class="deploy-note">이 세 날은 결석하지 마세요. 하루 밀리면 다음 트랙에서 따라잡기가 어렵습니다.</div>
   </section>
@@ -300,7 +300,7 @@
   <section id="faq">
     <div class="sec-head"><h2>자주 묻는 질문</h2></div>
     <div class="faq">
-      <details><summary>왜 같은 서비스를 세 번이나 만드나요?<span class="mk">＋</span></summary><div class="a">세 가지 이유입니다. ① 기술 차이가 몸으로 느껴집니다 — 같은 기능을 다시 만들어봐야 “React를 쓰니 이게 이렇게 짧아지는구나”를 압니다. ② 완주 경험이 세 번 쌓입니다 — 3주 끝에 한 번만 배포하는 커리큘럼은 중간에 포기하기 쉽습니다. ③ AI 시대라서 가능합니다 — Cursor와 함께라면 재작성 비용이 아주 낮습니다. 마지막에 남는 건 실력만이 아니라 ‘결과물 3개’ 포트폴리오입니다.</div></details>
+      <details><summary>3주 동안 뭘 만드나요?<span class="mk">＋</span></summary><div class="a">같은 서비스를 반복하는 게 아니라, <b>서로 다른 세 개의 서비스를 세 가지 방식으로</b> 만듭니다. ① TRACK 1 — HTML·CSS·JS로 첫 서비스, ② TRACK 2 — React·Supabase·AI API로 두 번째 서비스, ③ TRACK 3 — Next.js·Firebase·공공 API로 세 번째 서비스. 스택이 매번 달라지니 그만큼 다양한 경험이 쌓이고, 배포도 세 번(8/7·8/12·8/17) 완주합니다. 3주 뒤엔 서로 다른 결과물 3개가 포트폴리오로 남습니다.</div></details>
       <details><summary>코딩을 한 번도 안 해봤는데 괜찮나요?<span class="mk">＋</span></summary><div class="a">괜찮습니다. ‘개발자 되기’가 아니라 ‘내 서비스 배포하기’ 수업입니다. 문법 암기는 필요 없고, AI에게 잘 부탁하는 법과 AI가 준 코드를 읽는 최소한의 눈을 기릅니다. 에러는 실패가 아니라 과정이며, 강사와 조교 2명이 함께 해결합니다.</div></details>
       <details><summary>과제는 채점하나요?<span class="mk">＋</span></summary><div class="a">과제는 하루 15~20분이고 제출·채점은 없습니다. 다만 다음 날 수업의 재료라서 안 해오면 그날이 힘들어집니다. 부담 없이, 그러나 꼭 해오세요.</div></details>
       <details><summary>노트북이 없어도 되나요?<span class="mk">＋</span></summary><div class="a">실습실 PC로도 진행할 수 있습니다. 다만 개인 노트북을 권장합니다 — 집에서도 이어서 작업할 수 있기 때문입니다. 계정은 전부 무료이며(ChatGPT·GitHub·Cursor·Netlify·Supabase·Firebase·Vercel) 회차별로 하나씩 안내합니다.</div></details>
@@ -329,15 +329,15 @@ const CONFIG = {
   SESSIONS: [
     { n:1,  date:"2026-08-03", dow:"월", track:"시작",   title:"OT · 바이브 코딩 이해 · 개발환경 세팅", build:"자기소개 페이지", hw:"불편함 10개 메모 (필수)", deploy:false, tools:["chatgpt","github","cursor"], slides:"https://docs.google.com/presentation/d/1-wBqqvU3mgUVU8JsEHsump-tE3MPhaoHer7xL0XheAo/preview" },
     { n:2,  date:"2026-08-04", dow:"화", track:"기획",   title:"기획 스프린트 — 하루에 기획 끝내기", build:"기획 문서 1개 (기획서·페르소나·와이어프레임)", hw:"기획서 소리내어 읽고 다듬기 · 레퍼런스 화면 1개 캡처", deploy:false, tools:["chatgpt"], slides:"" },
-    { n:3,  date:"2026-08-05", dow:"수", track:"TRACK 1 — HTML · CSS · JS", title:"HTML 구조 · CSS 기초", build:"내 서비스 v1 뼈대", hw:"내 페이지에 내용 채워오기", deploy:false, tools:["cursor"], slides:"" },
-    { n:4,  date:"2026-08-06", dow:"목", track:"TRACK 1 — HTML · CSS · JS", title:"CSS 레이아웃 · JS 기초(동작 붙이기)", build:"동작하는 v1", hw:"버튼 1개 더 추가해보기", deploy:false, tools:["cursor"], slides:"" },
+    { n:3,  date:"2026-08-05", dow:"수", track:"TRACK 1 — HTML · CSS · JS", title:"HTML 구조 · CSS 기초", build:"첫 번째 서비스 뼈대", hw:"내 페이지에 내용 채워오기", deploy:false, tools:["cursor"], slides:"" },
+    { n:4,  date:"2026-08-06", dow:"목", track:"TRACK 1 — HTML · CSS · JS", title:"CSS 레이아웃 · JS 기초(동작 붙이기)", build:"동작하는 첫 번째 서비스", hw:"버튼 1개 더 추가해보기", deploy:false, tools:["cursor"], slides:"" },
     { n:5,  date:"2026-08-07", dow:"금", track:"TRACK 1 — HTML · CSS · JS", title:"Netlify 배포 · 메타태그 · 도메인", build:"배포 URL #1", hw:"친구 3명에게 내 URL 공유하고 반응 받아오기", deploy:true, tools:["netlify","github"], slides:"" },
-    { n:6,  date:"2026-08-10", dow:"월", track:"TRACK 2 — React + Supabase", title:"React 개념 · 컴포넌트 · 프로젝트 세팅", build:"v2 프로젝트 + UI", hw:"컴포넌트 이름 정리하기", deploy:false, tools:["cursor"], slides:"" },
-    { n:7,  date:"2026-08-11", dow:"화", track:"TRACK 2 — React + Supabase", title:"Supabase 연동 · 저장하고 불러오기", build:"데이터가 되는 v2", hw:"내 데이터 5개 직접 넣어보기", deploy:false, tools:["supabase"], slides:"" },
-    { n:8,  date:"2026-08-12", dow:"수", track:"TRACK 2 — React + Supabase", title:"구글 로그인 · 실시간 · 재배포", build:"배포 URL #2", hw:"로그인해서 써보고 어색한 곳 3개 메모", deploy:true, tools:["supabase","netlify"], slides:"" },
-    { n:9,  date:"2026-08-13", dow:"목", track:"TRACK 3 — Next.js + Firebase", title:"Next.js · 라우팅 · TS/Tailwind 맛보기", build:"v3 프로젝트 + 페이지", hw:"화면 이동 흐름 점검", deploy:false, tools:["cursor"], slides:"" },
-    { n:10, date:"2026-08-14", dow:"금", track:"TRACK 3 — Next.js + Firebase", title:"Firebase 연동 · 기능 고도화", build:"기능 완성된 v3", hw:"에러 로그 모아오기", deploy:false, tools:["firebase"], slides:"" },
-    { n:11, date:"2026-08-17", dow:"월", track:"TRACK 3 — Next.js + Firebase", title:"Vercel 배포 · 도메인 · SEO · GA4", build:"최종 URL", hw:"가족·친구에게 공유하고 첫 사용자 만들기", deploy:true, tools:["vercel","firebase"], slides:"" },
+    { n:6,  date:"2026-08-10", dow:"월", track:"TRACK 2 — React · Supabase · AI API", title:"React 개념 · 컴포넌트 · 프로젝트 세팅", build:"두 번째 서비스 + UI", hw:"컴포넌트 이름 정리하기", deploy:false, tools:["cursor"], slides:"" },
+    { n:7,  date:"2026-08-11", dow:"화", track:"TRACK 2 — React · Supabase · AI API", title:"Supabase 연동 · 저장하고 불러오기", build:"데이터가 되는 두 번째 서비스", hw:"내 데이터 5개 직접 넣어보기", deploy:false, tools:["supabase"], slides:"" },
+    { n:8,  date:"2026-08-12", dow:"수", track:"TRACK 2 — React · Supabase · AI API", title:"구글 로그인 · 실시간 · 재배포", build:"배포 URL #2", hw:"로그인해서 써보고 어색한 곳 3개 메모", deploy:true, tools:["supabase","netlify"], slides:"" },
+    { n:9,  date:"2026-08-13", dow:"목", track:"TRACK 3 — Next.js · Firebase · 공공 API", title:"Next.js · 라우팅 · TS/Tailwind 맛보기", build:"세 번째 서비스 + 페이지", hw:"화면 이동 흐름 점검", deploy:false, tools:["cursor"], slides:"" },
+    { n:10, date:"2026-08-14", dow:"금", track:"TRACK 3 — Next.js · Firebase · 공공 API", title:"Firebase 연동 · 기능 고도화", build:"기능 완성된 세 번째 서비스", hw:"에러 로그 모아오기", deploy:false, tools:["firebase"], slides:"" },
+    { n:11, date:"2026-08-17", dow:"월", track:"TRACK 3 — Next.js · Firebase · 공공 API", title:"Vercel 배포 · 도메인 · SEO · GA4", build:"최종 URL", hw:"가족·친구에게 공유하고 첫 사용자 만들기", deploy:true, tools:["vercel","firebase"], slides:"" },
     { n:12, date:"2026-08-18", dow:"화", track:"런칭",   title:"첫 사용자 10명 만들기 · 피드백 · 발표 준비", build:"발표자료", hw:"발표 1회 소리내어 연습", deploy:false, tools:[], slides:"" },
     { n:13, date:"2026-08-19", dow:"수", track:"발표",   title:"최종 발표 · 상호 피드백 · 수료", build:"내 서비스 발표", hw:"— 수고하셨습니다!", deploy:false, tools:[], slides:"" },
   ],
@@ -430,7 +430,7 @@ const RES_META = [
   { key:"roadmap",    t:"3주 완주 로드맵",       d:"전체 커리큘럼 한 장 요약" },
   { key:"template",   t:"기획서 템플릿",         d:"서비스명·페르소나·Must 기능·와이어프레임" },
   { key:"cheatsheet", t:"프롬프트 치트시트",     d:"수업에서 쓰는 프롬프트 모음" },
-  { key:"urlsheet",   t:"내 배포 URL 수집 시트", d:"세 번의 배포 주소를 여기에 기록" },
+  { key:"urlsheet",   t:"내 배포 URL 수집 시트", d:"세 서비스의 배포 URL을 여기에 기록" },
 ];
 const RES_FIXED = [
   { t:"교재 「AI가 다 하고 내가 돈 버는 앱 만들기」", d:"서희찬 지음 · 길벗 — 해당 회차 챕터를 미리 읽어오면 실습이 수월합니다", href:"https://www.yes24.com/product/search?query=AI%EA%B0%80%20%EB%8B%A4%20%ED%95%98%EA%B3%A0%20%EB%82%B4%EA%B0%80%20%EB%8F%88%20%EB%B2%84%EB%8A%94%20%EC%95%B1%20%EB%A7%8C%EB%93%A4%EA%B8%B0", go:"예스24 →" },
