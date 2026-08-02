@@ -40,8 +40,21 @@
   h1,h2,h3{font-weight:700;letter-spacing:-0.02em;margin:0}
   b{font-weight:700}
 
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  section[id],div.hero{scroll-margin-top:52px}
+
   /* ── 상단 헤더 ── */
   .top{border-bottom:1px solid var(--line)}
+
+  /* ── 섹션 바로가기 네비 (상단 고정) ── */
+  .nav{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .nav .wrap::-webkit-scrollbar{display:none}
+  .nav a{flex:none;font-size:12.5px;padding:12px 14px;text-decoration:none;color:var(--dim);border-right:1px solid var(--hair);white-space:nowrap}
+  .nav a:first-child{padding-left:0}
+  .nav a:hover{color:var(--ink);background:var(--hover)}
+  .nav a:last-child{border-right:0}
   .top .wrap{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between;align-items:baseline;padding-top:14px;padding-bottom:14px}
   .top .brand{font-size:12px;letter-spacing:0.02em}
   .top .meta{font-size:12px;color:var(--dim)}
@@ -199,6 +212,18 @@
   </div>
 </header>
 
+<nav class="nav" aria-label="섹션 바로가기">
+  <div class="wrap">
+    <a href="#schedule">일정</a>
+    <a href="#tools">도구</a>
+    <a href="#prompts">프롬프트</a>
+    <a href="#resources">자료실</a>
+    <a href="#stuck">막혔을때</a>
+    <a href="#rules">규칙</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</nav>
+
 <div class="hero">
   <div class="wrap">
     <div class="kicker">2026. 8. 3.(월) → 8. 19.(수) · 13회차 · 강사 서희찬</div>
@@ -302,7 +327,7 @@
    ═══════════════════════════════════════════════════════════════ */
 const CONFIG = {
   SESSIONS: [
-    { n:1,  date:"2026-08-03", dow:"월", track:"시작",   title:"OT · 바이브 코딩 이해 · 개발환경 세팅", build:"자기소개 페이지", hw:"불편함 10개 메모 (필수)", deploy:false, tools:["chatgpt","github","cursor"], slides:"https://docs.google.com/presentation/d/1-wBqqvU3mgUVU8JsEHsump-tE3MPhaoHer7xL0XheAo/edit?usp=sharing" },
+    { n:1,  date:"2026-08-03", dow:"월", track:"시작",   title:"OT · 바이브 코딩 이해 · 개발환경 세팅", build:"자기소개 페이지", hw:"불편함 10개 메모 (필수)", deploy:false, tools:["chatgpt","github","cursor"], slides:"https://docs.google.com/presentation/d/1-wBqqvU3mgUVU8JsEHsump-tE3MPhaoHer7xL0XheAo/preview" },
     { n:2,  date:"2026-08-04", dow:"화", track:"기획",   title:"기획 스프린트 — 하루에 기획 끝내기", build:"기획 문서 1개 (기획서·페르소나·와이어프레임)", hw:"기획서 소리내어 읽고 다듬기 · 레퍼런스 화면 1개 캡처", deploy:false, tools:["chatgpt"], slides:"" },
     { n:3,  date:"2026-08-05", dow:"수", track:"TRACK 1 — HTML · CSS · JS", title:"HTML 구조 · CSS 기초", build:"내 서비스 v1 뼈대", hw:"내 페이지에 내용 채워오기", deploy:false, tools:["cursor"], slides:"" },
     { n:4,  date:"2026-08-06", dow:"목", track:"TRACK 1 — HTML · CSS · JS", title:"CSS 레이아웃 · JS 기초(동작 붙이기)", build:"동작하는 v1", hw:"버튼 1개 더 추가해보기", deploy:false, tools:["cursor"], slides:"" },
@@ -318,7 +343,7 @@ const CONFIG = {
   ],
   // 각 자료의 링크를 채우면 활성화됩니다. 비우면 [준비 중]으로 표시됩니다.
   RESOURCES: {
-    roadmap:    "https://docs.google.com/document/d/1jRtCjCpe3lIojigQw-QydWn-jxB1l_3O/edit?usp=sharing&ouid=108920478277503914498&rtpof=true&sd=true",   // 3주 완주 로드맵 문서
+    roadmap:    "https://docs.google.com/document/d/1jRtCjCpe3lIojigQw-QydWn-jxB1l_3O/preview",   // 3주 완주 로드맵 문서
     template:   "",   // 기획서 템플릿
     cheatsheet: "",   // 프롬프트 치트시트
     urlsheet:   "",   // 내 배포 URL 수집 시트
