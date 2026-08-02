@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>바이브 코딩 부트캠프 — 수업 허브</title>
+<meta name="description" content="2026 여름 SW집중교육 · AI 바이브 코딩 부트캠프. 오늘 수업·슬라이드·과제·자료·규칙을 한 곳에서. 동국대 다향관 C3.">
+<meta name="theme-color" content="#141414">
+<meta property="og:title" content="바이브 코딩 부트캠프 — 수업 허브">
+<meta property="og:description" content="기획은 하루, 배포는 세 번. 매일의 수업·슬라이드·과제·자료·도구를 한 링크로. 동국대 다향관 C3.">
+<meta property="og:type" content="website">
+
+<style>
+  :root{
+    --ink:#141414;
+    --paper:#faf9f6;
+    --line:#141414;
+    --hair:#dcdad3;      /* 얇은 구분선 */
+    --dim:#6b6a64;        /* 보조 텍스트 (AA: #6b6a64 on #faf9f6 ≈ 5.0:1) */
+    --dimmer:#8a887f;     /* 지난 회차 */
+    --hover:#efede7;      /* 행 hover */
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--mono);
+    font-size:15px;
+    line-height:1.65;
+    letter-spacing:-0.01em;
+    font-variant-numeric:tabular-nums;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  a{color:inherit}
+  h1,h2,h3{font-weight:700;letter-spacing:-0.02em;margin:0}
+  b{font-weight:700}
+
+  /* ── 상단 헤더 ── */
+  .top{border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between;align-items:baseline;padding-top:14px;padding-bottom:14px}
+  .top .brand{font-size:12px;letter-spacing:0.02em}
+  .top .meta{font-size:12px;color:var(--dim)}
+
+  /* ── 히어로 ── */
+  .hero{padding:56px 0 40px;border-bottom:1px solid var(--line)}
+  .hero .kicker{font-size:12px;color:var(--dim);margin-bottom:18px}
+  .hero h1{font-size:30px;line-height:1.28;word-break:keep-all}
+  .cursor{display:inline-block;width:0.55em;height:1em;background:var(--ink);margin-left:4px;transform:translateY(0.12em);animation:blink 1.05s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  @media (prefers-reduced-motion: reduce){.cursor{animation:none}}
+  /* 상태줄 */
+  #status{margin-top:26px;border:1px solid var(--line);padding:14px 16px;font-size:14px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+  #status .tag{font-size:11px;letter-spacing:0.08em;background:var(--ink);color:var(--paper);padding:2px 8px;flex:none}
+  #status .txt{font-weight:700}
+  #status .sub{color:var(--dim);font-size:13px;flex-basis:100%}
+
+  section{padding:44px 0;border-bottom:1px solid var(--hair)}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+  .sec-head h2{font-size:16px}
+  .sec-head .idx{font-size:12px;color:var(--dim)}
+  .lead{color:var(--dim);font-size:13.5px;margin:-8px 0 22px;word-break:keep-all}
+
+  /* ── 배포 스트립 ── */
+  .deploys{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line)}
+  .deploys .d{padding:16px 14px;border-right:1px solid var(--line)}
+  .deploys .d:last-child{border-right:0}
+  .deploys .d .dd{font-size:19px;font-weight:700}
+  .deploys .d .dd .dw{font-size:13px;color:var(--dim);font-weight:400}
+  .deploys .d .dl{font-size:12px;color:var(--dim);margin-top:6px;line-height:1.5}
+  .deploys .d .dstar{font-size:11px;letter-spacing:0.06em;margin-top:10px;display:inline-block;border:1px solid var(--line);padding:1px 7px}
+  .deploy-note{margin-top:14px;font-size:13px;font-weight:700;word-break:keep-all}
+
+  /* ── 일정 장부 ── */
+  .ledger{border:1px solid var(--line)}
+  .trk{background:var(--ink);color:var(--paper);font-size:11px;letter-spacing:0.1em;padding:7px 14px}
+  .row{border-top:1px solid var(--hair);width:100%;text-align:left;background:transparent;color:inherit;font:inherit;cursor:pointer;display:block;padding:0}
+  .ledger > .row:first-of-type{border-top:0}
+  .trk + .row{border-top:0}
+  .row .rmain{display:grid;grid-template-columns:32px 74px 1fr auto;gap:12px;align-items:center;padding:12px 14px}
+  .row:hover{background:var(--hover)}
+  .row .n{font-size:13px;color:var(--dim);text-align:right}
+  .row .date{font-size:12px;color:var(--dim);white-space:nowrap}
+  .row .title{font-size:14px;font-weight:700;line-height:1.4;word-break:keep-all}
+  .row .star{color:var(--ink)}
+  .row.past{color:var(--dimmer)}
+  .row.past .n,.row.past .date,.row.past .title{color:var(--dimmer)}
+  .row.today{background:var(--ink);color:var(--paper)}
+  .row.today:hover{background:var(--ink)}
+  .row.today .n,.row.today .date{color:#b9b7b0}
+  .row.today .title,.row.today .star{color:var(--paper)}
+  .row .todaytag{font-size:10px;letter-spacing:0.12em;background:var(--paper);color:var(--ink);padding:1px 6px;margin-left:8px;vertical-align:1px;white-space:nowrap}
+  /* 펼침 상세 */
+  .detail{display:none;padding:2px 14px 16px 58px;font-size:13px;border-top:1px dashed var(--hair)}
+  .row.open + .detail{display:block}
+  .row.today + .detail{background:#f2f0ea}
+  .detail dl{margin:0;display:grid;grid-template-columns:64px 1fr;gap:6px 12px}
+  .detail dt{color:var(--dim);font-size:12px}
+  .detail dd{margin:0;word-break:keep-all}
+  .detail .tt{margin-top:12px;padding-top:12px;border-top:1px dashed var(--hair);color:var(--dim);font-size:12px;line-height:1.7;word-break:keep-all}
+  .detail .tools-in{margin-top:12px;padding-top:12px;border-top:1px dashed var(--hair);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .detail .tools-in .til{font-size:12px;color:var(--dim);margin-right:2px}
+  .chip{font-size:12px;border:1px solid var(--line);padding:5px 10px;text-decoration:none;white-space:nowrap;min-height:32px;line-height:20px;display:inline-block}
+  .chip:hover{background:var(--ink);color:var(--paper)}
+  .row.today + .detail .chip:hover{background:var(--paper);color:var(--ink)}
+
+  /* ── 도구 바로가기 ── */
+  .toolgrid{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--line)}
+  .toolgrid .tool{padding:14px;border-right:1px solid var(--hair);border-top:1px solid var(--hair);text-decoration:none;display:block}
+  .toolgrid .tool:nth-child(-n+2){border-top:0}
+  .toolgrid .tool:nth-child(2n){border-right:0}
+  .toolgrid .tool:hover{background:var(--hover)}
+  .toolgrid .tn{font-size:14px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+  .toolgrid .tn .ar{color:var(--dim);font-weight:400}
+  .toolgrid .td{font-size:12px;color:var(--dim);margin-top:4px;display:block;word-break:keep-all}
+
+  /* 슬라이드 버튼 */
+  .btn{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:6px 11px;text-decoration:none;white-space:nowrap;display:inline-block;min-height:34px;line-height:20px}
+  .btn:hover{background:var(--ink);color:var(--paper)}
+  .row.today .btn{border-color:var(--paper);background:transparent;color:var(--paper)}
+  .row.today .btn:hover{background:var(--paper);color:var(--ink)}
+  .btn.off{border-style:dashed;color:var(--dim);background:transparent;cursor:not-allowed}
+  .btn.off:hover{background:transparent;color:var(--dim)}
+  .row.today .btn.off{color:#b9b7b0;border-color:#666;border-style:dashed}
+
+  /* ── 프롬프트 카드 ── */
+  .cards{display:grid;gap:14px}
+  .card{border:1px solid var(--line)}
+  .card .ch{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line)}
+  .card .ch .ct{font-size:13px;font-weight:700}
+  .card .ch .cw{font-size:11px;color:var(--dim);margin-top:2px}
+  .card pre{margin:0;padding:14px;font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word;overflow-x:auto}
+  .copy{font:inherit;font-size:11px;letter-spacing:0.04em;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:6px 10px;cursor:pointer;white-space:nowrap;min-height:32px;flex:none}
+  .copy:hover{background:var(--ink);color:var(--paper)}
+  .copy.done{background:var(--ink);color:var(--paper)}
+
+  /* ── 자료실 ── */
+  .res{border:1px solid var(--line)}
+  .res a,.res .ri{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 14px;border-top:1px solid var(--hair);text-decoration:none}
+  .res > :first-child{border-top:0}
+  .res a:hover{background:var(--hover)}
+  .res .rt{font-size:13.5px;font-weight:700;display:block}
+  .res .rd{font-size:12px;color:var(--dim);margin-top:2px;display:block;word-break:keep-all}
+  .res .go{font-size:12px;color:var(--dim);white-space:nowrap;flex:none}
+  .res .ri .rt{color:var(--dim)}
+
+  /* ── 리스트형 (막혔을 때 / 규칙) ── */
+  .stack{border:1px solid var(--line)}
+  .stack .it{padding:14px;border-top:1px solid var(--hair)}
+  .stack .it:first-child{border-top:0}
+  .stack .it .k{font-size:13px;font-weight:700}
+  .stack .it .v{font-size:13px;color:var(--dim);margin-top:5px;line-height:1.6;word-break:keep-all}
+
+  /* ── FAQ ── */
+  .faq{border:1px solid var(--line);padding:0 14px}
+  .faq details{border-top:1px solid var(--hair)}
+  .faq details:first-child{border-top:0}
+  .faq summary{list-style:none;cursor:pointer;padding:14px 2px;font-size:13.5px;font-weight:700;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .mk{color:var(--dim);font-size:15px;flex:none;font-weight:400}
+  .faq details[open] summary .mk{content:"－"}
+  .faq .a{padding:0 2px 16px;font-size:13px;color:var(--dim);line-height:1.75;word-break:keep-all}
+
+  /* ── 푸터 ── */
+  footer{padding:36px 0 60px}
+  footer .big{font-size:14px;font-weight:700;line-height:1.6;word-break:keep-all}
+  footer .sm{font-size:12px;color:var(--dim);margin-top:14px;line-height:1.6}
+
+  @media (max-width:600px){
+    body{font-size:14px}
+    .hero{padding:40px 0 30px}
+    .hero h1{font-size:23px}
+    .deploys{grid-template-columns:1fr}
+    .deploys .d{border-right:0;border-top:1px solid var(--line)}
+    .deploys .d:first-child{border-top:0}
+    .row .rmain{grid-template-columns:26px 1fr;gap:2px 10px;padding:12px}
+    .row .n{grid-row:1}
+    .row .title{grid-column:2;grid-row:1}
+    .row .date{grid-column:2;grid-row:2}
+    .row .act{grid-column:1 / -1;grid-row:3;margin-top:10px;display:flex;justify-content:flex-end}
+    .detail{padding-left:38px}
+    .detail dl{grid-template-columns:56px 1fr}
+    .toolgrid{grid-template-columns:1fr}
+    .toolgrid .tool{border-right:0}
+    .toolgrid .tool:nth-child(2){border-top:1px solid var(--hair)}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="brand">2026 여름 SW집중교육 · AI 바이브 코딩 부트캠프</span>
+    <span class="meta">동국대 다향관 C3 · 평일 13:00–17:00</span>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="kicker">2026. 8. 3.(월) → 8. 19.(수) · 13회차 · 강사 서희찬</div>
+    <h1>기획은 하루,<br>배포는 세 번<span class="cursor" aria-hidden="true"></span></h1>
+    <div id="status" role="status" aria-live="polite">
+      <span class="tag">STATUS</span>
+      <span class="txt">불러오는 중…</span>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- 배포일 -->
+  <section id="deploy">
+    <div class="sec-head"><h2>세 번의 배포</h2><span class="idx">이 날짜만 기억하세요</span></div>
+    <div class="deploys">
+      <div class="d"><div class="dd">8/7 <span class="dw">금</span></div><div class="dl">TRACK 1 · HTML·CSS·JS<br>→ Netlify 첫 URL</div><span class="dstar">★ v1</span></div>
+      <div class="d"><div class="dd">8/12 <span class="dw">수</span></div><div class="dl">TRACK 2 · React+Supabase<br>→ 데이터·로그인 v2</div><span class="dstar">★ v2</span></div>
+      <div class="d"><div class="dd">8/17 <span class="dw">월</span></div><div class="dl">TRACK 3 · Next.js+Firebase<br>→ Vercel 최종 URL</div><span class="dstar">★ v3</span></div>
+    </div>
+    <div class="deploy-note">이 세 날은 결석하지 마세요. 하루 밀리면 다음 트랙에서 따라잡기가 어렵습니다.</div>
+  </section>
+
+  <!-- 일정 장부 -->
+  <section id="schedule">
+    <div class="sec-head"><h2>13회차 일정</h2><span class="idx">행을 누르면 상세가 열립니다</span></div>
+    <div class="ledger" id="ledger"></div>
+  </section>
+
+  <!-- 프롬프트 -->
+  <section id="prompts">
+    <div class="sec-head"><h2>수업 프롬프트</h2><span class="idx">복사해서 바로 쓰세요</span></div>
+    <p class="lead">2회차 기획 스프린트와 1회차 실습에서 그대로 쓰는 프롬프트입니다. <b>맥락 블록</b>은 새 대화를 시작할 때마다 맨 앞에 붙이세요 (3주 내내).</p>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- 도구 바로가기 -->
+  <section id="tools">
+    <div class="sec-head"><h2>도구 바로가기</h2><span class="idx">전부 무료 · 회차별로 하나씩</span></div>
+    <p class="lead">지금 다 가입할 필요 없습니다. 해당 회차 상세를 열면 그날 쓸 도구만 다시 안내됩니다. 같은 이메일 하나로 통일해서 가입하세요.</p>
+    <div class="toolgrid" id="toolgrid"></div>
+  </section>
+
+  <!-- 자료실 -->
+  <section id="resources">
+    <div class="sec-head"><h2>자료실</h2><span class="idx">링크 모음</span></div>
+    <div class="res" id="res"></div>
+  </section>
+
+  <!-- 막혔을 때 -->
+  <section id="stuck">
+    <div class="sec-head"><h2>막혔을 때</h2><span class="idx">혼자 끙끙대지 않기</span></div>
+    <div class="stack">
+      <div class="it"><div class="k">에러가 나면</div><div class="v">에러 메시지를 <b>그대로 복사</b>해서 Cursor 채팅에 붙여넣고 “고쳐줘”. 검색하지 마세요.</div></div>
+      <div class="it"><div class="k">5분 이상 막히면</div><div class="v">손 드세요. 강사와 조교 2명이 바로 갑니다. 혼자 고민하는 시간이 가장 비쌉니다.</div></div>
+      <div class="it"><div class="k">결과가 마음에 안 들면</div><div class="v">전체를 다시 만들지 말고 “<b>○○ 부분만 바꿔줘</b>”로 요청하세요.</div></div>
+      <div class="it"><div class="k">진도가 밀렸다면</div><div class="v">숨기지 말고 알려주세요. 다음 날 시작 전 15분에 함께 따라잡습니다.</div></div>
+    </div>
+  </section>
+
+  <!-- 운영 규칙 -->
+  <section id="rules">
+    <div class="sec-head"><h2>운영 규칙</h2><span class="idx">꼭 기억해주세요</span></div>
+    <div class="stack">
+      <div class="it"><div class="k">출석</div><div class="v">매일 구글시트로 확인(조교 진행). <b>3회 이상 결석 시 미이수</b> — 이수증·드림패스 마일리지가 지급되지 않습니다. 지각도 기록되니 13:00 정각까지 착석해주세요.</div></div>
+      <div class="it"><div class="k">Cursor 결제·증빙</div><div class="v">유료 크레딧은 지원됩니다. ① 충전 완료 화면 캡처(본인 ID·일자 포함) 이메일 제출 → ② 종강 시점 소진 화면 캡처 제출 → ③ <b>구독 해지까지 반드시 완료</b>(다음 달 자동결제 방지, 조교 확인). 1회차 실습 ① 시간에 함께 진행합니다.</div></div>
+      <div class="it"><div class="k">C3 실습실</div><div class="v">음료 반입 금지(복도에서 마시고 입실). 앞줄 공용 충전기 6개는 사용 후 제자리에. 가급적 매일 같은 자리 사용 권장. 개인 노트북 지참 권장(집에서도 이어 작업 가능, 실습실 PC도 사용 가능).</div></div>
+      <div class="it"><div class="k">기록·공지</div><div class="v">매 수업은 녹화되며 강의 사진도 촬영됩니다(교육 운영 기록용). 공지·자료 전달은 이메일로 진행되니 메일을 자주 확인해주세요.</div></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sec-head"><h2>자주 묻는 질문</h2></div>
+    <div class="faq">
+      <details><summary>왜 같은 서비스를 세 번이나 만드나요?<span class="mk">＋</span></summary><div class="a">세 가지 이유입니다. ① 기술 차이가 몸으로 느껴집니다 — 같은 기능을 다시 만들어봐야 “React를 쓰니 이게 이렇게 짧아지는구나”를 압니다. ② 완주 경험이 세 번 쌓입니다 — 3주 끝에 한 번만 배포하는 커리큘럼은 중간에 포기하기 쉽습니다. ③ AI 시대라서 가능합니다 — Cursor와 함께라면 재작성 비용이 아주 낮습니다. 마지막에 남는 건 실력만이 아니라 ‘결과물 3개’ 포트폴리오입니다.</div></details>
+      <details><summary>코딩을 한 번도 안 해봤는데 괜찮나요?<span class="mk">＋</span></summary><div class="a">괜찮습니다. ‘개발자 되기’가 아니라 ‘내 서비스 배포하기’ 수업입니다. 문법 암기는 필요 없고, AI에게 잘 부탁하는 법과 AI가 준 코드를 읽는 최소한의 눈을 기릅니다. 에러는 실패가 아니라 과정이며, 강사와 조교 2명이 함께 해결합니다.</div></details>
+      <details><summary>과제는 채점하나요?<span class="mk">＋</span></summary><div class="a">과제는 하루 15~20분이고 제출·채점은 없습니다. 다만 다음 날 수업의 재료라서 안 해오면 그날이 힘들어집니다. 부담 없이, 그러나 꼭 해오세요.</div></details>
+      <details><summary>노트북이 없어도 되나요?<span class="mk">＋</span></summary><div class="a">실습실 PC로도 진행할 수 있습니다. 다만 개인 노트북을 권장합니다 — 집에서도 이어서 작업할 수 있기 때문입니다. 계정은 전부 무료이며(ChatGPT·GitHub·Cursor·Netlify·Supabase·Firebase·Vercel) 회차별로 하나씩 안내합니다.</div></details>
+      <details><summary>결석하면 어떻게 되나요?<span class="mk">＋</span></summary><div class="a">3회 이상 결석 시 미이수 처리되어 이수증·마일리지가 지급되지 않습니다. 특히 배포일인 8/7·8/12·8/17 세 날은 결석하지 마세요 — 하루 밀리면 다음 트랙 따라잡기가 어렵습니다. 진도가 밀렸다면 숨기지 말고 알려주세요. 다음 날 시작 전 15분에 함께 따라잡습니다.</div></details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="big">이 사이트도 지금 인터넷에 배포되어 있습니다.<br>5회차(8/7)에 여러분이 직접 하게 됩니다.</div>
+    <div class="sm">2026 여름 SW집중교육 · AI 바이브 코딩 부트캠프 · 강사 서희찬 · 동국대학교 다향관 C3</div>
+  </footer>
+
+</main>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   운영자 설정 — 매일 아침 이 부분만 고치고 다시 배포하면 됩니다.
+
+   · 슬라이드: 그날 회차의 slides:"" 안에 구글 슬라이드 공유 링크를 붙여넣으세요.
+       (구글 슬라이드에서 [공유] → "링크가 있는 모든 사용자 · 뷰어"로 열어둘 것)
+       비어 있으면 자동으로 [준비 중] 비활성 버튼으로 표시됩니다.
+   · 자료실: RESOURCES 의 각 URL을 채우세요. 비우면 [준비 중]으로 표시됩니다.
+   · 날짜/제목/과제는 이미 채워져 있으니 건드리지 않아도 됩니다.
+   ═══════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  SESSIONS: [
+    { n:1,  date:"2026-08-03", dow:"월", track:"시작",   title:"OT · 바이브 코딩 이해 · 개발환경 세팅", build:"자기소개 페이지", hw:"불편함 10개 메모 (필수)", deploy:false, tools:["chatgpt","github","cursor"], slides:"https://docs.google.com/presentation/d/1-wBqqvU3mgUVU8JsEHsump-tE3MPhaoHer7xL0XheAo/edit?usp=sharing" },
+    { n:2,  date:"2026-08-04", dow:"화", track:"기획",   title:"기획 스프린트 — 하루에 기획 끝내기", build:"기획 문서 1개 (기획서·페르소나·와이어프레임)", hw:"기획서 소리내어 읽고 다듬기 · 레퍼런스 화면 1개 캡처", deploy:false, tools:["chatgpt"], slides:"" },
+    { n:3,  date:"2026-08-05", dow:"수", track:"TRACK 1 — HTML · CSS · JS", title:"HTML 구조 · CSS 기초", build:"내 서비스 v1 뼈대", hw:"내 페이지에 내용 채워오기", deploy:false, tools:["cursor"], slides:"" },
+    { n:4,  date:"2026-08-06", dow:"목", track:"TRACK 1 — HTML · CSS · JS", title:"CSS 레이아웃 · JS 기초(동작 붙이기)", build:"동작하는 v1", hw:"버튼 1개 더 추가해보기", deploy:false, tools:["cursor"], slides:"" },
+    { n:5,  date:"2026-08-07", dow:"금", track:"TRACK 1 — HTML · CSS · JS", title:"Netlify 배포 · 메타태그 · 도메인", build:"배포 URL #1", hw:"친구 3명에게 내 URL 공유하고 반응 받아오기", deploy:true, tools:["netlify","github"], slides:"" },
+    { n:6,  date:"2026-08-10", dow:"월", track:"TRACK 2 — React + Supabase", title:"React 개념 · 컴포넌트 · 프로젝트 세팅", build:"v2 프로젝트 + UI", hw:"컴포넌트 이름 정리하기", deploy:false, tools:["cursor"], slides:"" },
+    { n:7,  date:"2026-08-11", dow:"화", track:"TRACK 2 — React + Supabase", title:"Supabase 연동 · 저장하고 불러오기", build:"데이터가 되는 v2", hw:"내 데이터 5개 직접 넣어보기", deploy:false, tools:["supabase"], slides:"" },
+    { n:8,  date:"2026-08-12", dow:"수", track:"TRACK 2 — React + Supabase", title:"구글 로그인 · 실시간 · 재배포", build:"배포 URL #2", hw:"로그인해서 써보고 어색한 곳 3개 메모", deploy:true, tools:["supabase","netlify"], slides:"" },
+    { n:9,  date:"2026-08-13", dow:"목", track:"TRACK 3 — Next.js + Firebase", title:"Next.js · 라우팅 · TS/Tailwind 맛보기", build:"v3 프로젝트 + 페이지", hw:"화면 이동 흐름 점검", deploy:false, tools:["cursor"], slides:"" },
+    { n:10, date:"2026-08-14", dow:"금", track:"TRACK 3 — Next.js + Firebase", title:"Firebase 연동 · 기능 고도화", build:"기능 완성된 v3", hw:"에러 로그 모아오기", deploy:false, tools:["firebase"], slides:"" },
+    { n:11, date:"2026-08-17", dow:"월", track:"TRACK 3 — Next.js + Firebase", title:"Vercel 배포 · 도메인 · SEO · GA4", build:"최종 URL", hw:"가족·친구에게 공유하고 첫 사용자 만들기", deploy:true, tools:["vercel","firebase"], slides:"" },
+    { n:12, date:"2026-08-18", dow:"화", track:"런칭",   title:"첫 사용자 10명 만들기 · 피드백 · 발표 준비", build:"발표자료", hw:"발표 1회 소리내어 연습", deploy:false, tools:[], slides:"" },
+    { n:13, date:"2026-08-19", dow:"수", track:"발표",   title:"최종 발표 · 상호 피드백 · 수료", build:"내 서비스 발표", hw:"— 수고하셨습니다!", deploy:false, tools:[], slides:"" },
+  ],
+  // 각 자료의 링크를 채우면 활성화됩니다. 비우면 [준비 중]으로 표시됩니다.
+  RESOURCES: {
+    roadmap:    "",   // 3주 완주 로드맵 문서
+    template:   "",   // 기획서 템플릿
+    cheatsheet: "",   // 프롬프트 치트시트
+    urlsheet:   "",   // 내 배포 URL 수집 시트
+  },
+};
+
+/* 도구 링크 — 회차 상세와 도구 바로가기 섹션에서 공통으로 사용 */
+const TOOLS = {
+  chatgpt:  { name:"ChatGPT",  url:"https://chatgpt.com",             desc:"기획 파트너 · 아이디어·기획서·페르소나" },
+  github:   { name:"GitHub",   url:"https://github.com",             desc:"코드 저장소이자 이력서" },
+  cursor:   { name:"Cursor",   url:"https://cursor.com",             desc:"AI가 내장된 코드 에디터 · 3주 내내" },
+  netlify:  { name:"Netlify",  url:"https://app.netlify.com/drop",   desc:"드래그로 배포 · TRACK 1·2" },
+  supabase: { name:"Supabase", url:"https://supabase.com",           desc:"데이터 저장(DB) · 로그인" },
+  firebase: { name:"Firebase", url:"https://firebase.google.com",    desc:"구글의 DB · 로그인 서비스" },
+  vercel:   { name:"Vercel",   url:"https://vercel.com",             desc:"최종 배포 · TRACK 3" },
+};
+const TOOL_ORDER = ["chatgpt","github","cursor","netlify","supabase","firebase","vercel"];
+
+/* 1·2회차 타임테이블 요약 (상세 펼침에서 노출) */
+const TIMETABLE = {
+  1: "13:00 OT·강사 소개·로드맵·운영 안내 / 13:40 바이브 코딩이란 / 14:30 도구·사례·라이브 데모 / 15:00 실습① 계정 3종+Cursor 결제·증빙 / 15:40 실습② Cursor 설치 / 16:10 실습③ 나의 첫 페이지 / 16:50 정리·과제·Q&A",
+  2: "13:00 복습·목표·규칙 / 13:20 STEP1 아이디어(불편함 4렌즈·3축) / 13:40 STEP1 실습 / 14:35 STEP2 기획서 / 15:20 STEP3 페르소나·Must 기능 / 16:00 STEP4 와이어프레임 3화면 / 16:30 문서 통합·조교 확인 / 16:50 갤러리 워크·예고",
+};
+
+/* 프롬프트 카드 (deck1·deck2 원문) */
+const PROMPTS = [
+  {
+    t:"맥락 블록", w:"새 대화 시작마다 맨 앞에 · 3주 내내",
+    body:`나는 [전공/학년]이고 코딩은 처음이야. 3주 안에 혼자 무료 도구로 웹 서비스 1개를 만들어 배포하는 게 목표야.`,
+  },
+  {
+    t:"서비스 한 문장 공식", w:"아이디어를 한 줄로 압축",
+    body:`"[누가] [언제] 겪는 [문제]를 [어떻게] 해결하는 서비스"
+
+먼저 내 손으로 한 문장 써보기 → ChatGPT에게:
+"위 공식에 맞게 다듬어줘, 후보 3개."`,
+  },
+  {
+    t:"기획서 생성 프롬프트", w:"2회차 STEP 2",
+    body:`[맥락 블록 붙여넣기]
+너는 10년차 서비스 기획자야.
+내 서비스 한 문장: "[STEP 2에서 만든 한 문장]"
+
+이 아이디어를 아래 6개 항목의 한 쪽짜리 기획서로 정리해줘.
+각 항목 2~3문장 이내, 전문용어 없이:
+① 서비스 이름(후보 3개) ② 해결하는 문제 ③ 대상 사용자
+④ 핵심 기능 1개 ⑤ 있으면 좋은 기능 2개 ⑥ 성공의 기준(3주 뒤 무엇이 되면 성공?)
+
+④가 2개 이상 나오면 → "딱 1개로 좁혀줘. 나머지는 ⑤로 보내"
+생성 후 필수: "까다로운 투자자 입장에서 이 기획서의 약점 3개를 말해줘"`,
+  },
+  {
+    t:"페르소나 + 기능 정의", w:"2회차 STEP 3",
+    body:`[맥락 블록 붙여넣기]
+너는 UX 리서처야. 내 서비스 기획서: "[기획서 붙여넣기]"
+
+1) 대표 사용자 페르소나 1명을 만들어줘:
+① 이름·나이·학년 ② 하루 일과 속 상황 ③ 목표 ④ 불편함
+⑤ 우리 서비스를 쓰는 순간의 시나리오 (3~4문장)
+
+2) 이어서, 이 서비스에 들어갈 기능을 10개 나열하고
+Must(1개) / Should(2~3개) / Could(나머지)로 분류해줘.
+※ Must는 반드시 1개, 외부 데이터 없이 만들 수 있는 것으로.`,
+  },
+  {
+    t:"나의 첫 페이지", w:"1회차 실습 ③ · [ ]만 바꿔서",
+    body:`자기소개 웹페이지를 만들어줘. index.html 파일 하나로.
+포함할 내용:
+- 제일 위에 내 이름 "[이름]"을 크게
+- 그 아래 나를 표현하는 한 문장: "[예: 만들고 싶은 게 많은 경영학과 3학년]"
+- 내가 좋아하는 것 3가지 목록: [예: 카페 탐방, 농구, 여행]
+스타일: 배경은 [좋아하는 색], 글씨는 잘 보이는 색으로.
+전체적으로 깔끔하고 모던하게 만들어줘.`,
+  },
+  {
+    t:"에러가 났을 때", w:"검색하지 말 것",
+    body:`[에러 메시지를 그대로 복사해서 여기 붙여넣기]
+
+위 에러 고쳐줘.`,
+  },
+];
+
+const RES_META = [
+  { key:"roadmap",    t:"3주 완주 로드맵",       d:"전체 커리큘럼 한 장 요약" },
+  { key:"template",   t:"기획서 템플릿",         d:"서비스명·페르소나·Must 기능·와이어프레임" },
+  { key:"cheatsheet", t:"프롬프트 치트시트",     d:"수업에서 쓰는 프롬프트 모음" },
+  { key:"urlsheet",   t:"내 배포 URL 수집 시트", d:"세 번의 배포 주소를 여기에 기록" },
+];
+const RES_FIXED = [
+  { t:"교재 「AI가 다 하고 내가 돈 버는 앱 만들기」", d:"서희찬 지음 · 길벗 — 해당 회차 챕터를 미리 읽어오면 실습이 수월합니다", href:"https://www.yes24.com/product/search?query=AI%EA%B0%80%20%EB%8B%A4%20%ED%95%98%EA%B3%A0%20%EB%82%B4%EA%B0%80%20%EB%8F%88%20%EB%B2%84%EB%8A%94%20%EC%95%B1%20%EB%A7%8C%EB%93%A4%EA%B8%B0", go:"예스24 →" },
+  { t:"강사 인스타그램 @dev_seochan", d:"공지·비하인드", href:"https://www.instagram.com/dev_seochan", go:"@dev_seochan →" },
+];
+
+/* ── 순수 함수: 오늘 상태 판정 (KST, 문자열 비교만 사용해 타임존 버그 차단) ── */
+function getStatus(todayStr){
+  const S = CONFIG.SESSIONS;
+  const first = S[0].date, last = S[S.length-1].date;
+  const today = S.find(s => s.date === todayStr);
+  if (today) return { type:"classday", session:today };
+  if (todayStr < first){
+    return { type:"before", dday: daysBetween(todayStr, first), session:S[0] };
+  }
+  if (todayStr > last) return { type:"done" };
+  // 수업 기간 내 비수업일(주말 등) → 다음 회차 안내
+  return { type:"gap", session: S.find(s => s.date > todayStr) };
+}
+/* a → b 사이 일수 (양쪽 "YYYY-MM-DD", UTC 자정 기준으로 DST 무관) */
+function daysBetween(a, b){
+  const pa = a.split("-").map(Number), pb = b.split("-").map(Number);
+  return Math.round((Date.UTC(pb[0],pb[1]-1,pb[2]) - Date.UTC(pa[0],pa[1]-1,pa[2])) / 86400000);
+}
+/* KST 기준 오늘 "YYYY-MM-DD" */
+function kstToday(){
+  try { return new Intl.DateTimeFormat("en-CA", { timeZone:"Asia/Seoul" }).format(new Date()); }
+  catch(e){ return new Date(Date.now() + 9*3600*1000).toISOString().slice(0,10); }
+}
+window.__getStatus = getStatus; // 테스트용 노출
+
+/* ── 유틸 ── */
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function escAttr(s){ return String(s).replace(/[&"<>]/g, c => ({"&":"&amp;",'"':"&quot;","<":"&lt;",">":"&gt;"}[c])); }
+function md(d){ const p=d.split("-"); return parseInt(p[1],10)+"/"+parseInt(p[2],10); }
+
+/* ── 렌더 ── */
+function renderStatus(todayStr){
+  const st = getStatus(todayStr);
+  const el = document.getElementById("status");
+  let tag="STATUS", txt="", sub="";
+  if (st.type === "before"){
+    tag = "D-" + st.dday;
+    txt = "개강까지 " + st.dday + "일";
+    sub = "8/3(월) 13:00 · 다향관 C3 · 1회차 " + st.session.title;
+  } else if (st.type === "classday"){
+    const s = st.session;
+    tag = "TODAY";
+    txt = "오늘은 " + s.n + "회차 — " + s.title;
+    sub = (s.deploy ? "★ 배포하는 날 · " : "") + "만드는 것: " + s.build;
+  } else if (st.type === "gap"){
+    const s = st.session;
+    tag = "NEXT";
+    txt = "다음 수업: " + s.n + "회차 " + md(s.date) + "(" + s.dow + ") — " + s.title;
+    sub = "오늘은 수업이 없는 날입니다. 과제와 자료를 확인해두세요.";
+  } else {
+    tag = "DONE";
+    txt = "13회차 완주 — 수료를 축하합니다 🚀";
+    sub = "당신의 서비스는 이제 주소가 있습니다.";
+  }
+  el.innerHTML = '<span class="tag">'+esc(tag)+'</span><span class="txt">'+esc(txt)+'</span>'
+    + (sub ? '<span class="sub">'+esc(sub)+'</span>' : '');
+}
+
+function renderLedger(todayStr){
+  const L = document.getElementById("ledger");
+  let html = "", lastTrack = null;
+  CONFIG.SESSIONS.forEach(s => {
+    if (s.track !== lastTrack){ html += '<div class="trk">'+esc(s.track)+'</div>'; lastTrack = s.track; }
+    let cls = "row";
+    const isToday = s.date === todayStr, isPast = s.date < todayStr;
+    if (isToday) cls += " today"; else if (isPast) cls += " past";
+    const mark = s.deploy ? '<span class="star">★</span> ' : (isPast ? '<span aria-hidden="true">✓</span> ' : '');
+    const slideBtn = s.slides
+      ? '<a class="btn" href="'+escAttr(s.slides)+'" target="_blank" rel="noopener">슬라이드 →</a>'
+      : '<span class="btn off" role="button" aria-disabled="true">준비 중</span>';
+    const tt = TIMETABLE[s.n] ? '<div class="tt"><b>타임테이블</b> · '+esc(TIMETABLE[s.n])+'</div>' : '';
+    const toolChips = (s.tools && s.tools.length)
+      ? '<div class="tools-in"><span class="til">오늘의 도구</span>'
+        + s.tools.map(k => TOOLS[k] ? '<a class="chip" href="'+escAttr(TOOLS[k].url)+'" target="_blank" rel="noopener">'+esc(TOOLS[k].name)+' →</a>' : '').join('')
+        + '</div>'
+      : '';
+    html +=
+      '<button class="'+cls+'" type="button" aria-expanded="false">'
+      +   '<span class="rmain">'
+      +     '<span class="n">'+s.n+'</span>'
+      +     '<span class="date">'+md(s.date)+' '+esc(s.dow)+'</span>'
+      +     '<span class="title">'+mark+esc(s.title)+(isToday?'<span class="todaytag">TODAY</span>':'')+'</span>'
+      +     '<span class="act">'+slideBtn+'</span>'
+      +   '</span>'
+      + '</button>'
+      + '<div class="detail">'
+      +   '<dl>'
+      +     '<dt>만드는 것</dt><dd>'+esc(s.build)+'</dd>'
+      +     '<dt>과제</dt><dd>'+esc(s.hw)+'</dd>'
+      +   '</dl>'+toolChips+tt
+      + '</div>';
+  });
+  L.innerHTML = html;
+
+  L.querySelectorAll(".row").forEach(row => {
+    row.addEventListener("click", e => {
+      if (e.target.closest("a")) return; // 슬라이드 링크 클릭은 통과
+      const open = row.classList.toggle("open");
+      row.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+  const todayRow = L.querySelector(".row.today");
+  if (todayRow){ todayRow.classList.add("open"); todayRow.setAttribute("aria-expanded","true"); }
+}
+
+function renderCards(){
+  const C = document.getElementById("cards");
+  C.innerHTML = PROMPTS.map((p,i) =>
+    '<div class="card">'
+    + '<div class="ch"><div><div class="ct">'+esc(p.t)+'</div><div class="cw">'+esc(p.w)+'</div></div>'
+    +   '<button class="copy" type="button" data-i="'+i+'">복사</button></div>'
+    + '<pre>'+esc(p.body)+'</pre>'
+    + '</div>'
+  ).join("");
+  C.querySelectorAll(".copy").forEach(btn => {
+    btn.addEventListener("click", () => copyText(PROMPTS[+btn.getAttribute("data-i")].body, btn));
+  });
+}
+
+function copyText(text, btn){
+  const done = () => { btn.classList.add("done"); const o=btn.textContent; btn.textContent="복사됨 ✓";
+    setTimeout(()=>{ btn.classList.remove("done"); btn.textContent=o; }, 1400); };
+  const fallback = () => {
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.style.position="fixed"; ta.style.opacity="0"; ta.style.top="0";
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try { document.execCommand("copy"); done(); } catch(e){ btn.textContent="Ctrl+C로 복사"; }
+    document.body.removeChild(ta);
+  };
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(done).catch(fallback);
+  } else { fallback(); }
+}
+
+function renderTools(){
+  const G = document.getElementById("toolgrid");
+  G.innerHTML = TOOL_ORDER.map(k => {
+    const t = TOOLS[k];
+    return '<a class="tool" href="'+escAttr(t.url)+'" target="_blank" rel="noopener">'
+      + '<span class="tn">'+esc(t.name)+' <span class="ar">→</span></span>'
+      + '<span class="td">'+esc(t.desc)+'</span></a>';
+  }).join("");
+}
+
+function renderResources(){
+  const R = document.getElementById("res");
+  let html = "";
+  RES_META.forEach(m => {
+    const url = CONFIG.RESOURCES[m.key];
+    html += url
+      ? '<a href="'+escAttr(url)+'" target="_blank" rel="noopener"><span><span class="rt">'+esc(m.t)+'</span><span class="rd">'+esc(m.d)+'</span></span><span class="go">열기 →</span></a>'
+      : '<div class="ri"><span><span class="rt">'+esc(m.t)+'</span><span class="rd">'+esc(m.d)+'</span></span><span class="go">준비 중</span></div>';
+  });
+  RES_FIXED.forEach(f => {
+    html += '<a href="'+escAttr(f.href)+'" target="_blank" rel="noopener"><span><span class="rt">'+esc(f.t)+'</span><span class="rd">'+esc(f.d)+'</span></span><span class="go">'+esc(f.go)+'</span></a>';
+  });
+  R.innerHTML = html;
+}
+
+/* ── 부트 ── */
+(function init(){
+  const today = kstToday();
+  renderStatus(today);
+  renderLedger(today);
+  renderCards();
+  renderTools();
+  renderResources();
+})();
+</script>
+</body>
+</html>
