@@ -321,8 +321,8 @@
 
    · 슬라이드: 그날 회차의 slides:"" 안에 구글 슬라이드 공유 링크를 붙여넣으세요.
        (구글 슬라이드에서 [공유] → "링크가 있는 모든 사용자 · 뷰어"로 열어둘 것)
-       비어 있으면 자동으로 [준비 중] 비활성 버튼으로 표시됩니다.
-   · 자료실: RESOURCES 의 각 URL을 채우세요. 비우면 [준비 중]으로 표시됩니다.
+       비어 있으면 자동으로 [공개 예정] 비활성 버튼으로 표시됩니다.
+   · 자료실: RESOURCES 의 각 URL을 채우세요. 비우면 [공개 예정]으로 표시됩니다.
    · 날짜/제목/과제는 이미 채워져 있으니 건드리지 않아도 됩니다.
    ═══════════════════════════════════════════════════════════════ */
 const CONFIG = {
@@ -506,7 +506,7 @@ function renderLedger(todayStr){
     const mark = s.deploy ? '<span class="star">★</span> ' : (isPast ? '<span aria-hidden="true">✓</span> ' : '');
     const slideBtn = s.slides
       ? '<a class="btn" href="'+escAttr(s.slides)+'" target="_blank" rel="noopener">슬라이드 →</a>'
-      : '<span class="btn off" role="button" aria-disabled="true">준비 중</span>';
+      : '<span class="btn off" role="button" aria-disabled="true">공개 예정</span>';
     const tt = TIMETABLE[s.n] ? '<div class="tt"><b>타임테이블</b> · '+esc(TIMETABLE[s.n])+'</div>' : '';
     const toolChips = (s.tools && s.tools.length)
       ? '<div class="tools-in"><span class="til">오늘의 도구</span>'
@@ -588,7 +588,7 @@ function renderResources(){
     const url = CONFIG.RESOURCES[m.key];
     html += url
       ? '<a href="'+escAttr(url)+'" target="_blank" rel="noopener"><span><span class="rt">'+esc(m.t)+'</span><span class="rd">'+esc(m.d)+'</span></span><span class="go">열기 →</span></a>'
-      : '<div class="ri"><span><span class="rt">'+esc(m.t)+'</span><span class="rd">'+esc(m.d)+'</span></span><span class="go">준비 중</span></div>';
+      : '<div class="ri"><span><span class="rt">'+esc(m.t)+'</span><span class="rd">'+esc(m.d)+'</span></span><span class="go">공개 예정</span></div>';
   });
   RES_FIXED.forEach(f => {
     html += '<a href="'+escAttr(f.href)+'" target="_blank" rel="noopener"><span><span class="rt">'+esc(f.t)+'</span><span class="rd">'+esc(f.d)+'</span></span><span class="go">'+esc(f.go)+'</span></a>';
