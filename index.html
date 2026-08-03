@@ -343,8 +343,8 @@ const CONFIG = {
     { n:9,  date:"2026-08-13", dow:"목", track:"TRACK 3 — Next.js · Firebase · 공공 API", title:"Next.js · 라우팅 · TS/Tailwind 맛보기", build:"세 번째 서비스 + 페이지", hw:"화면 이동 흐름 점검", deploy:false, tools:["cursor"], slides:"" },
     { n:10, date:"2026-08-14", dow:"금", track:"TRACK 3 — Next.js · Firebase · 공공 API", title:"Firebase 연동 · 기능 고도화", build:"기능 완성된 세 번째 서비스", hw:"에러 로그 모아오기", deploy:false, tools:["firebase"], slides:"" },
     { n:11, date:"2026-08-17", dow:"월", track:"TRACK 3 — Next.js · Firebase · 공공 API", title:"Vercel 배포 · 도메인 · SEO · GA4", build:"최종 URL", hw:"가족·친구에게 공유하고 첫 사용자 만들기", deploy:true, tools:["vercel","firebase"], slides:"" },
-    { n:12, date:"2026-08-18", dow:"화", track:"런칭",   title:"첫 사용자 10명 만들기 · 피드백 · 발표 준비", build:"발표자료", hw:"발표 1회 소리내어 연습", deploy:false, tools:[], slides:"" },
-    { n:13, date:"2026-08-19", dow:"수", track:"발표",   title:"최종 발표 · 상호 피드백 · 수료", build:"내 서비스 발표", hw:"— 수고하셨습니다!", deploy:false, tools:[], slides:"" },
+    { n:12, date:"2026-08-18", dow:"화", track:"런칭",   title:"첫 사용자 10명 만들기 · 피드백 · 발표 준비", build:"발표자료", hw:"발표 1회 소리내어 연습", deploy:false, tools:[], slides:"", slidesLabel:"수업 후 공개" },
+    { n:13, date:"2026-08-19", dow:"수", track:"발표",   title:"최종 발표 · 상호 피드백 · 수료", build:"내 서비스 발표", hw:"— 수고하셨습니다!", deploy:false, tools:[], slides:"", slidesLabel:"수업 후 공개" },
   ],
   // 각 자료의 링크를 채우면 활성화됩니다. 비우면 [공개 예정]으로 표시됩니다.
   RESOURCES: {
@@ -511,7 +511,7 @@ function renderLedger(todayStr){
     const mark = s.deploy ? '<span class="star">★</span> ' : (isPast ? '<span aria-hidden="true">✓</span> ' : '');
     const slideBtn = s.slides
       ? '<a class="btn" href="'+escAttr(s.slides)+'" target="_blank" rel="noopener">슬라이드 →</a>'
-      : '<span class="btn off" role="button" aria-disabled="true">공개 예정</span>';
+      : '<span class="btn off" role="button" aria-disabled="true">'+esc(s.slidesLabel || "공개 예정")+'</span>';
     const tt = TIMETABLE[s.n] ? '<div class="tt"><b>타임테이블</b> · '+esc(TIMETABLE[s.n])+'</div>' : '';
     const toolChips = (s.tools && s.tools.length)
       ? '<div class="tools-in"><span class="til">오늘의 도구</span>'
