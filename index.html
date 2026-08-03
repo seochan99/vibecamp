@@ -353,6 +353,9 @@ const CONFIG = {
     cheatsheet: "",   // 프롬프트 치트시트
     urlsheet:   "",   // 내 배포 URL 수집 시트
   },
+  // 수업 종료 시각(KST, 24h). 이 시각이 지나면 그날 회차의 슬라이드가 자동으로 공개됩니다.
+  // 그 전까지는 링크가 있어도 [수업 후 공개]로 잠깁니다.
+  CLASS_END: "17:00",
 };
 
 /* 도구 링크 — 회차 상세와 도구 바로가기 섹션에서 공통으로 사용 */
@@ -465,6 +468,18 @@ function kstToday(){
   try { return new Intl.DateTimeFormat("en-CA", { timeZone:"Asia/Seoul" }).format(new Date()); }
   catch(e){ return new Date(Date.now() + 9*3600*1000).toISOString().slice(0,10); }
 }
+/* KST 기준 현재 "YYYY-MM-DDTHH:mm" — 슬라이드 자동 공개 판정용 */
+function kstNow(){
+  try {
+    const p = new Intl.DateTimeFormat("en-CA", { timeZone:"Asia/Seoul", year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit", hour12:false }).formatToParts(new Date());
+    const o = {}; p.forEach(x => o[x.type] = x.value);
+    return o.year + "-" + o.month + "-" + o.day + "T" + (o.hour === "24" ? "00" : o.hour) + ":" + o.minute;
+  } catch(e){ return new Date(Date.now() + 9*3600*1000).toISOString().slice(0,16); }
+}
+/* 슬라이드 공개 여부: 링크가 있고 그날 수업 종료 시각이 지났으면 true */
+function slideUnlocked(s, nowDT){
+  return !!s.slides && nowDT >= (s.date + "T" + (CONFIG.CLASS_END || "17:00"));
+}
 window.__getStatus = getStatus; // 테스트용 노출
 
 /* ── 유틸 ── */
@@ -502,6 +517,7 @@ function renderStatus(todayStr){
 
 function renderLedger(todayStr){
   const L = document.getElementById("ledger");
+  const nowDT = kstNow();
   let html = "", lastTrack = null;
   CONFIG.SESSIONS.forEach(s => {
     if (s.track !== lastTrack){ html += '<div class="trk">'+esc(s.track)+'</div>'; lastTrack = s.track; }
@@ -509,9 +525,9 @@ function renderLedger(todayStr){
     const isToday = s.date === todayStr, isPast = s.date < todayStr;
     if (isToday) cls += " today"; else if (isPast) cls += " past";
     const mark = s.deploy ? '<span class="star">★</span> ' : (isPast ? '<span aria-hidden="true">✓</span> ' : '');
-    const slideBtn = s.slides
+    const slideBtn = slideUnlocked(s, nowDT)
       ? '<a class="btn" href="'+escAttr(s.slides)+'" target="_blank" rel="noopener">슬라이드 →</a>'
-      : '<span class="btn off" role="button" aria-disabled="true">'+esc(s.slidesLabel || "공개 예정")+'</span>';
+      : '<span class="btn off" role="button" aria-disabled="true">'+esc(s.slides ? "수업 후 공개" : (s.slidesLabel || "공개 예정"))+'</span>';
     const tt = TIMETABLE[s.n] ? '<div class="tt"><b>타임테이블</b> · '+esc(TIMETABLE[s.n])+'</div>' : '';
     const toolChips = (s.tools && s.tools.length)
       ? '<div class="tools-in"><span class="til">오늘의 도구</span>'
