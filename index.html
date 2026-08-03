@@ -332,7 +332,7 @@
    ═══════════════════════════════════════════════════════════════ */
 const CONFIG = {
   SESSIONS: [
-    { n:1,  date:"2026-08-03", dow:"월", track:"시작",   title:"OT · 바이브 코딩 이해 · 개발환경 세팅", build:"자기소개 페이지", hw:"불편함 10개 메모 (필수)", deploy:false, tools:["chatgpt","github","cursor"], slides:"https://docs.google.com/presentation/d/1-wBqqvU3mgUVU8JsEHsump-tE3MPhaoHer7xL0XheAo/preview" },
+    { n:1,  date:"2026-08-03", dow:"월", track:"시작",   title:"OT · 바이브 코딩 이해 · 개발환경 세팅", build:"자기소개 페이지", hw:"불편함 10개 메모 (필수)", deploy:false, tools:["chatgpt","github","cursor"], open:true, slides:"https://docs.google.com/presentation/d/1-wBqqvU3mgUVU8JsEHsump-tE3MPhaoHer7xL0XheAo/preview" },
     { n:2,  date:"2026-08-04", dow:"화", track:"기획",   title:"기획 스프린트 — 하루에 기획 끝내기", build:"기획 문서 1개 (기획서·페르소나·와이어프레임)", hw:"기획서 소리내어 읽고 다듬기 · 레퍼런스 화면 1개 캡처", deploy:false, tools:["chatgpt"], slides:"" },
     { n:3,  date:"2026-08-05", dow:"수", track:"TRACK 1 — HTML · CSS · JS", title:"HTML 구조 · CSS 기초", build:"첫 번째 서비스 뼈대", hw:"내 페이지에 내용 채워오기", deploy:false, tools:["cursor"], slides:"" },
     { n:4,  date:"2026-08-06", dow:"목", track:"TRACK 1 — HTML · CSS · JS", title:"CSS 레이아웃 · JS 기초(동작 붙이기)", build:"동작하는 첫 번째 서비스", hw:"버튼 1개 더 추가해보기", deploy:false, tools:["cursor"], slides:"" },
@@ -476,9 +476,12 @@ function kstNow(){
     return o.year + "-" + o.month + "-" + o.day + "T" + (o.hour === "24" ? "00" : o.hour) + ":" + o.minute;
   } catch(e){ return new Date(Date.now() + 9*3600*1000).toISOString().slice(0,16); }
 }
-/* 슬라이드 공개 여부: 링크가 있고 그날 수업 종료 시각이 지났으면 true */
+/* 슬라이드 공개 여부: 링크가 있고 (수동 공개했거나 그날 수업 종료 시각이 지났으면) true
+   → 특정 회차를 즉시 공개하려면 해당 SESSION에 open:true 를 추가하세요. */
 function slideUnlocked(s, nowDT){
-  return !!s.slides && nowDT >= (s.date + "T" + (CONFIG.CLASS_END || "17:00"));
+  if (!s.slides) return false;
+  if (s.open) return true;
+  return nowDT >= (s.date + "T" + (CONFIG.CLASS_END || "17:00"));
 }
 window.__getStatus = getStatus; // 테스트용 노출
 
