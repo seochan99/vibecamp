@@ -221,6 +221,7 @@
     <a href="#schedule">일정</a>
     <a href="#tools">도구</a>
     <a href="#prompts">프롬프트</a>
+    <a href="#refs">참고</a>
     <a href="#resources">자료실</a>
     <a href="#stuck">막혔을때</a>
     <a href="#rules">규칙</a>
@@ -263,6 +264,18 @@
     <div class="sec-head"><h2>수업 프롬프트</h2><span class="idx">복사해서 바로 쓰세요</span></div>
     <p class="lead">2회차 기획 스프린트와 1회차 실습에서 그대로 쓰는 프롬프트입니다. <b>맥락 블록</b>은 새 대화를 시작할 때마다 맨 앞에 붙이세요 (3주 내내).</p>
     <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- 참고 · 치트시트 -->
+  <section id="refs">
+    <div class="sec-head"><h2>참고 · 치트시트</h2><span class="idx">만들 때 자주 여는 것</span></div>
+    <p class="lead">웹 서비스 만들 때 바로 쓰는 레퍼런스·에셋 링크와, 자주 쓰는 단축키·배포 순서입니다. 지난 회차 슬라이드는 위 <a href="#schedule" style="color:inherit;text-decoration:underline;text-underline-offset:2px">일정</a>에서 해당 행을 눌러 다시 볼 수 있습니다.</p>
+    <div class="toolgrid" id="refgrid"></div>
+    <div class="stack" style="margin-top:14px">
+      <div class="it"><div class="k">Cursor 단축키</div><div class="v"><b>Cmd/Ctrl + L</b> AI 채팅 · <b>Cmd/Ctrl + K</b> 코드 인라인 편집 · <b>Cmd/Ctrl + I</b> 컴포저(여러 파일 한 번에) · <b>Tab</b> AI 자동완성 수락. 에러가 나면 메시지를 그대로 채팅에 붙여넣고 “고쳐줘”.</div></div>
+      <div class="it"><div class="k">Netlify 배포 3단계 · TRACK 1·2</div><div class="v">① 내 프로젝트 폴더를 통째로 <a href="https://app.netlify.com/drop" target="_blank" rel="noopener">app.netlify.com/drop</a> 에 드래그 → ② 생성된 URL 확인 → ③ Site settings → Change site name 으로 주소 변경. 고치면 같은 폴더를 다시 드래그하면 갱신됩니다.</div></div>
+      <div class="it"><div class="k">Vercel 배포 · TRACK 3</div><div class="v">GitHub 저장소를 <a href="https://vercel.com/new" target="_blank" rel="noopener">vercel.com/new</a> 에서 Import → 이후 <b>git push</b> 할 때마다 자동 배포됩니다. (이 수업 사이트도 같은 방식으로 배포돼 있어요.)</div></div>
+    </div>
   </section>
 
   <!-- 도구 바로가기 -->
@@ -369,6 +382,18 @@ const TOOLS = {
   vercel:   { name:"Vercel",   url:"https://vercel.com",             desc:"최종 배포 · TRACK 3" },
 };
 const TOOL_ORDER = ["chatgpt","github","cursor","netlify","supabase","firebase","vercel"];
+
+/* 참고 링크 — 웹 서비스 만들 때 자주 여는 레퍼런스·에셋 */
+const REFS = [
+  { name:"MDN Web Docs", url:"https://developer.mozilla.org/ko/", desc:"HTML·CSS·JS 공식 레퍼런스" },
+  { name:"W3Schools",    url:"https://www.w3schools.com/",        desc:"입문자용 예제·따라하기" },
+  { name:"Google Fonts", url:"https://fonts.google.com/",         desc:"무료 웹폰트 (한글 포함)" },
+  { name:"Coolors",      url:"https://coolors.co/",               desc:"색상 팔레트 생성기" },
+  { name:"unDraw",       url:"https://undraw.co/illustrations",   desc:"무료 일러스트" },
+  { name:"Unsplash",     url:"https://unsplash.com/",             desc:"무료 고화질 사진" },
+  { name:"Flaticon",     url:"https://www.flaticon.com/",         desc:"무료 아이콘" },
+  { name:"Can I use",    url:"https://caniuse.com/",              desc:"브라우저 지원 여부 확인" },
+];
 
 /* 1·2회차 타임테이블 요약 (상세 펼침에서 노출) */
 const TIMETABLE = {
@@ -605,6 +630,15 @@ function renderTools(){
   }).join("");
 }
 
+function renderRefs(){
+  const G = document.getElementById("refgrid");
+  G.innerHTML = REFS.map(r =>
+    '<a class="tool" href="'+escAttr(r.url)+'" target="_blank" rel="noopener">'
+    + '<span class="tn">'+esc(r.name)+' <span class="ar">→</span></span>'
+    + '<span class="td">'+esc(r.desc)+'</span></a>'
+  ).join("");
+}
+
 function renderResources(){
   const R = document.getElementById("res");
   let html = "";
@@ -626,6 +660,7 @@ function renderResources(){
   renderStatus(today);
   renderLedger(today);
   renderCards();
+  renderRefs();
   renderTools();
   renderResources();
 })();
