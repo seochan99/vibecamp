@@ -355,9 +355,9 @@ const CONFIG = {
     { n:8,  date:"2026-08-12", dow:"수", track:"TRACK 2 — React · Supabase · AI API", title:"구글 로그인 · 실시간 · 재배포", build:"배포 URL #2", hw:"로그인해서 써보고 어색한 곳 3개 메모", deploy:true, tools:["supabase","netlify"], slides:"https://docs.google.com/presentation/d/1_z_Q3Up61XgjvHiQM7jKGWJaB26FXv0RArOUz7uOWpI/preview" },
     { n:9,  date:"2026-08-13", dow:"목", track:"TRACK 3 — Next.js · Firebase · 공공 API", title:"Next.js · 라우팅 · TS/Tailwind 맛보기", build:"세 번째 서비스 + 페이지", hw:"화면 이동 흐름 점검", deploy:false, tools:["cursor"], slides:"https://docs.google.com/presentation/d/1XRb4y-WSrzHtOZKG1ZV5fFH11sMaV9EFGPb2pLX6Bbw/preview" },
     { n:10, date:"2026-08-14", dow:"금", track:"TRACK 3 — Next.js · Firebase · 공공 API", title:"Firebase 연동 · 기능 고도화", build:"기능 완성된 세 번째 서비스", hw:"에러 로그 모아오기", deploy:false, tools:["firebase"], slides:"https://docs.google.com/presentation/d/1K56Vat75R3MVBq9I4e-U5IPLmEPZSb8a78K3XDRCxVQ/preview" },
-    { n:11, date:"2026-08-17", dow:"월", track:"TRACK 3 — Next.js · Firebase · 공공 API", title:"Vercel 배포 · 도메인 · SEO · GA4", build:"최종 URL", hw:"가족·친구에게 공유하고 첫 사용자 만들기", deploy:true, tools:["vercel","firebase"], slides:"" },
+    { n:11, date:"2026-08-17", dow:"월", track:"TRACK 3 — Next.js · Firebase · 공공 API", title:"Vercel 배포 · 도메인 · SEO · GA4", build:"최종 URL", hw:"가족·친구에게 공유하고 첫 사용자 만들기", deploy:true, tools:["vercel","firebase"], slides:"https://docs.google.com/presentation/d/1kL2GMKYOdVhRL6kGFxutwBDXMzUqY6D_EN8WTmRv0zY/preview" },
     { n:12, date:"2026-08-18", dow:"화", track:"런칭",   title:"첫 사용자 10명 만들기 · 피드백 · 발표 준비", build:"발표자료", hw:"발표 1회 소리내어 연습", deploy:false, tools:[], slides:"", slidesLabel:"수업 후 공개" },
-    { n:13, date:"2026-08-19", dow:"수", track:"발표",   title:"최종 발표 · 상호 피드백 · 수료", build:"내 서비스 발표", hw:"— 수고하셨습니다!", deploy:false, tools:[], slides:"", slidesLabel:"수업 후 공개" },
+    { n:13, date:"2026-08-19", dow:"수", track:"발표",   title:"최종 발표 · 상호 피드백 · 수료", build:"내 서비스 발표", hw:"— 수고하셨습니다!", deploy:false, tools:[], slides:"", submission:"https://docs.google.com/presentation/d/1AbUKPIzVmkiHrMj_kDwWla180Gl-Sg0AVefREqjsdXg/edit?usp=sharing" },
   ],
   // 각 자료의 링크를 채우면 활성화됩니다. 비우면 [공개 예정]으로 표시됩니다.
   RESOURCES: {
@@ -557,9 +557,11 @@ function renderLedger(todayStr){
     const isToday = s.date === todayStr, isPast = s.date < todayStr;
     if (isToday) cls += " today"; else if (isPast) cls += " past";
     const mark = s.deploy ? '<span class="star">★</span> ' : (isPast ? '<span aria-hidden="true">✓</span> ' : '');
-    const slideBtn = slideUnlocked(s, nowDT)
-      ? '<a class="btn" href="'+escAttr(s.slides)+'" target="_blank" rel="noopener">슬라이드 →</a>'
-      : '<span class="btn off" role="button" aria-disabled="true">'+esc(s.slides ? "수업 후 공개" : (s.slidesLabel || "공개 예정"))+'</span>';
+    const actionBtn = s.submission
+      ? '<a class="btn" href="'+escAttr(s.submission)+'" target="_blank" rel="noopener">발표자료 제출 →</a>'
+      : slideUnlocked(s, nowDT)
+        ? '<a class="btn" href="'+escAttr(s.slides)+'" target="_blank" rel="noopener">슬라이드 →</a>'
+        : '<span class="btn off" role="button" aria-disabled="true">'+esc(s.slides ? "수업 후 공개" : (s.slidesLabel || "공개 예정"))+'</span>';
     const tt = TIMETABLE[s.n] ? '<div class="tt"><b>타임테이블</b> · '+esc(TIMETABLE[s.n])+'</div>' : '';
     const toolChips = (s.tools && s.tools.length)
       ? '<div class="tools-in"><span class="til">오늘의 도구</span>'
@@ -572,7 +574,7 @@ function renderLedger(todayStr){
       +     '<span class="n">'+s.n+'</span>'
       +     '<span class="date">'+md(s.date)+' '+esc(s.dow)+'</span>'
       +     '<span class="title">'+mark+esc(s.title)+(isToday?'<span class="todaytag">TODAY</span>':'')+'</span>'
-      +     '<span class="act">'+slideBtn+'</span>'
+      +     '<span class="act">'+actionBtn+'</span>'
       +   '</span>'
       + '</button>'
       + '<div class="detail">'
