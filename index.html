@@ -78,6 +78,19 @@
   .sec-head .idx{font-size:12px;color:var(--dim)}
   .lead{color:var(--dim);font-size:13.5px;margin:-8px 0 22px;word-break:keep-all}
 
+  /* ── 발표 기록 배너 (반전) ── */
+  #record{padding-bottom:0}
+  .record{border:1px solid var(--line);background:var(--ink);color:var(--paper);padding:20px}
+  .record h2{font-size:15px;color:var(--paper)}
+  .record .rsub{font-size:12.5px;color:#b9b7b0;margin-top:7px;word-break:keep-all}
+  .record .rbtns{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .record .rbtn{flex:1 1 200px;border:1px solid var(--paper);color:var(--paper);text-decoration:none;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .record .rbtn:hover{background:var(--paper);color:var(--ink)}
+  .record .rbtn .rt{font-size:14px;font-weight:700;display:block}
+  .record .rbtn .rd{font-size:11px;font-weight:400;color:#b9b7b0;display:block;margin-top:3px}
+  .record .rbtn:hover .rd{color:var(--dim)}
+  .record .rbtn .rar{font-size:15px;flex:none}
+
   /* ── 배포 스트립 ── */
   .deploys{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line)}
   .deploys .d{padding:16px 14px;border-right:1px solid var(--line)}
@@ -218,6 +231,7 @@
 
 <nav class="nav" aria-label="섹션 바로가기">
   <div class="wrap">
+    <a href="#record" id="navRecord">발표</a>
     <a href="#schedule">일정</a>
     <a href="#tools">도구</a>
     <a href="#prompts">프롬프트</a>
@@ -241,6 +255,9 @@
 </div>
 
 <main class="wrap">
+
+  <!-- 발표 기록 (사진·영상) — 발표 끝나면 최상단에 노출 -->
+  <section id="record"><div class="record" id="recordbox"></div></section>
 
   <!-- 배포일 -->
   <section id="deploy">
@@ -364,6 +381,11 @@ const CONFIG = {
     template:   "",   // 기획서 템플릿
     cheatsheet: "",   // 프롬프트 치트시트
     urlsheet:   "",   // 내 배포 URL 수집 시트
+  },
+  // 발표 기록 — 최종 발표 사진/영상 (구글 드라이브 폴더 링크). 둘 다 비우면 상단 '발표 기록' 배너가 자동으로 숨겨집니다.
+  RECORD: {
+    photos: "https://drive.google.com/drive/folders/1PizdTddiRh_BfZ0WcE80CBnl_YJHNP_R?usp=sharing",
+    video:  "https://drive.google.com/drive/folders/1hCjhcI0hdiQvRQnC7Xdlx-IFFf8U4vA3?usp=sharing",
   },
   // 수업 종료 시각(KST, 24h). 이 시각이 지나면 그날 회차의 슬라이드가 자동으로 공개됩니다.
   // 그 전까지는 링크가 있어도 [수업 후 공개]로 잠깁니다.
@@ -635,6 +657,25 @@ function renderTools(){
   }).join("");
 }
 
+function renderRecord(){
+  const sec = document.getElementById("record");
+  const box = document.getElementById("recordbox");
+  const nav = document.getElementById("navRecord");
+  const R = CONFIG.RECORD || {};
+  const items = [];
+  if (R.photos) items.push({ t:"발표 사진 앨범", d:"구글 드라이브 폴더", u:R.photos });
+  if (R.video)  items.push({ t:"발표 영상",     d:"구글 드라이브 폴더", u:R.video });
+  if (!items.length){ sec.style.display = "none"; if(nav) nav.style.display = "none"; return; }
+  box.innerHTML =
+    '<h2>발표 기록</h2>'
+    + '<div class="rsub">최종 발표가 끝났습니다. 현장 사진과 영상을 여기서 볼 수 있어요.</div>'
+    + '<div class="rbtns">'
+    + items.map(i => '<a class="rbtn" href="'+escAttr(i.u)+'" target="_blank" rel="noopener">'
+        + '<span><span class="rt">'+esc(i.t)+'</span><span class="rd">'+esc(i.d)+'</span></span>'
+        + '<span class="rar">→</span></a>').join("")
+    + '</div>';
+}
+
 function renderRefs(){
   const G = document.getElementById("refgrid");
   G.innerHTML = REFS.map(r =>
@@ -663,6 +704,7 @@ function renderResources(){
 (function init(){
   const today = kstToday();
   renderStatus(today);
+  renderRecord();
   renderLedger(today);
   renderCards();
   renderRefs();
